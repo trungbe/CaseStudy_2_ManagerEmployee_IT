@@ -1,9 +1,9 @@
-package model;
+package storage;
 
 import java.io.*;
 import java.util.List;
 
-public class FileProcess {
+public class EmployeeReadAndWrite {
     public static final String TEXT_FILE_DEV = "src\\storage\\developer.dat";
     public static final String TEXT_FILE_TEST = "src\\storage\\tester.dat";
 
