@@ -1,8 +1,8 @@
 package view;
 
+import controller.Manager;
 import model.Developer;
 import model.Tester;
-import controller.Manager;
 import storage.EmployeeReadAndWrite;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class Main {
                 manager.showTotalSalaryEmployee(choiceObject);
                 break;
             case 7:
-
+                manager.sortEmployeeBySalary(choiceObject);
 
         }
     }
