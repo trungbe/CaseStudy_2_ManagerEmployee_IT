@@ -12,6 +12,7 @@ public class Manager {
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
+    List<Object> objectList;
 
     public Manager(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
@@ -19,8 +20,7 @@ public class Manager {
     }
 
 
-
-    public void addNew(Object object, int choiceObject) {
+    public void checkEmployee(Object object, int choiceObject) {
         List<Object> objectList = new ArrayList<>();
         switch (choiceObject) {
             case 1:
@@ -37,7 +37,40 @@ public class Manager {
         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
     }
 
-    public void showAll(int choiceObject) {
+    public void addNewEmployee(int choiceObject) {
+        if (choiceObject != 1 && choiceObject != 2) {
+            System.out.println("Not found");
+            return;
+        }
+        System.out.println("ENTER ID");
+        String id = scanner.nextLine();
+        System.out.println("ENTER NAME");
+        String name = scanner.nextLine();
+        System.out.println("ENTER AGE");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.println("ENTER PHONE");
+        int phone = Integer.parseInt(scanner.nextLine());
+        System.out.println("ENTER FIXED SALARY");
+        int fixedSalary = Integer.parseInt(scanner.nextLine());
+        switch (choiceObject) {
+            case 1:
+                System.out.println("ENTER OVERTIME HOURS");
+                int overtimeHours = Integer.parseInt(scanner.nextLine());
+                checkEmployee(new Developer(id, name, age, phone, fixedSalary, overtimeHours), choiceObject);
+                break;
+            case 2:
+                System.out.println("ENTER BUG NUMBER");
+                int bugNumber = Integer.parseInt(scanner.nextLine());
+                checkEmployee(new Tester(id, name, age, phone, fixedSalary, bugNumber), choiceObject);
+                break;
+        }
+    }
+
+    public void showAllEmployee(int choiceObject) {
+        if (choiceObject != 1 && choiceObject != 2) {
+            System.out.println("NOT FOUND");
+            return;
+        }
         System.out.println("------------------Thông tin " + (choiceObject == 1 ? "lập trình viên" : "kiểm thử viên") + "------------------");
         System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s%-15s"
                 , "ID"
@@ -60,11 +93,9 @@ public class Manager {
                                 , dev.getOvertimeHours()
                                 , dev.getSalary());
                     }
-                    System.out.println("\n");
                     break;
-
                 } catch (Exception e) {
-                    System.out.println("NOT FOUND");
+                    System.out.println("NOT FOUND INFOR");
                 }
             case 2:
                 try {
@@ -78,22 +109,19 @@ public class Manager {
                                 , tester.getBugNumber()
                                 , tester.getSalary());
                     }
-                    System.out.println("\n");
                     break;
                 } catch (Exception e) {
-                    System.out.println("NOT FOUND");
+                    System.out.println("NOT FOUND INFOR");
                 }
-
         }
     }
 
-    public void update(int choiceObject) {
-        List<Object> objectList;
+    public void updateEmployee(int choiceObject) {
         if (choiceObject != 1 && choiceObject != 2) {
-            System.out.println("Function not found");
+            System.out.println("Not found");
             return;
         }
-        System.out.println("Chọn nhân viên: ");
+        System.out.println("Chọn Id nhân viên: ");
         String id = scanner.nextLine();
         switch (choiceObject) {
             case 1:
@@ -119,7 +147,7 @@ public class Manager {
                         break;
                     }
                 }
-                System.out.println("Employee not found");
+                System.out.println("Employee not found! \n");
                 break;
             case 2:
                 for (int i = 0; i < testerList.size(); i++) {
@@ -144,66 +172,101 @@ public class Manager {
                         break;
                     }
                 }
-                System.out.println("Employee not found");
+                System.out.println("Employee not found \n");
                 break;
         }
     }
 
-    public void delete(int choiceObject) {
-        List<Object> objectList = new ArrayList<>();
+    public void deleteEmployee(int choiceObject) {
         if (choiceObject != 1 && choiceObject != 2) {
-            System.out.println("Function not found");
+            System.out.println("NOT FOUND");
             return;
         }
-        System.out.println("Chọn nhân viên: ");
+        System.out.println("Chọn Id nhân viên: ");
         String id = scanner.nextLine();
         switch (choiceObject) {
             case 1:
-                for (int i = 0; i < developerList.size(); i++) {
-                    if (developerList.get(i).getId().equals(id)) {
-                        developerList.remove(i);
+                for (Developer dev : developerList) {
+                    if (id.equals(dev.getId())) {
+                        developerList.remove(dev);
                         objectList = new ArrayList<Object>(developerList);
                         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
                         break;
                     }
                 }
-                System.out.println("Employee not found");
+                System.out.println("Employee deleted");
                 break;
             case 2:
-                for (int i = 0; i < testerList.size(); i++) {
-                    if (testerList.get(i).getId().equals(id)) {
-                        testerList.remove(i);
+                for (Tester tester : testerList) {
+                    if (id.equals(tester.getId())) {
+                        testerList.remove(tester);
                         objectList = new ArrayList<Object>(testerList);
                         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
                         break;
                     }
                 }
-                System.out.println("Employee not found");
+                System.out.println("Employee deleted");
                 break;
         }
     }
 
-    public void addNewEmployee(int choiceObject) {
-        System.out.println("ENTER ID");
+    public void searchEmployee(int choiceObject) {
+        if (choiceObject != 1 && choiceObject != 2) {
+            System.out.println("NOT FOUND");
+            return;
+        }
+        System.out.println("Chọn Id nhân viên: ");
         String id = scanner.nextLine();
-        System.out.println("ENTER NAME");
-        String name = scanner.nextLine();
-        System.out.println("ENTER AGE");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.println("ENTER PHONE");
-        int phone = Integer.parseInt(scanner.nextLine());
-        System.out.println("ENTER FIXED SALARY");
-        int fixedSalary = Integer.parseInt(scanner.nextLine());
         switch (choiceObject) {
             case 1:
-                System.out.println("ENTER OVERTIME HOURS");
-                int overtimeHours = Integer.parseInt(scanner.nextLine());
-                addNew(new Developer(id, name, age, phone, fixedSalary, overtimeHours), choiceObject);
+                for (Developer dev : developerList) {
+                    if (id.equals(dev.getId())) {
+                        System.out.println("------------------Thông tin lập trình viên------------------");
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                , "ID"
+                                , "Họ tên"
+                                , "Tuổi"
+                                , "Số điện thoại"
+                                , "Lương cứng"
+                                , "Giờ làm thêm");
+                        try {
+                            System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                    , dev.getId()
+                                    , dev.getName()
+                                    , dev.getAge()
+                                    , dev.getPhone()
+                                    , dev.getFixedSalary()
+                                    , dev.getOvertimeHours());
+                        } catch (Exception e) {
+                            System.out.println("NOT FOUND INFOR");
+                        }
+                    }
+                }
                 break;
             case 2:
-                System.out.println("ENTER BUG NUMBER");
-                int bugNumber = Integer.parseInt(scanner.nextLine());
-                addNew(new Tester(id, name, age, phone, fixedSalary, bugNumber), choiceObject);
+                for (Tester tester : testerList) {
+                    if (id.equals(tester.getId())) {
+                        System.out.println("------------------Thông tin kiểm thử viên------------------");
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                , "ID"
+                                , "Họ tên"
+                                , "Tuổi"
+                                , "Số điện thoại"
+                                , "Lương cứng"
+                                , "Số bug đã tìm thấy ");
+                        try {
+                            System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                    , tester.getId()
+                                    , tester.getName()
+                                    , tester.getAge()
+                                    , tester.getPhone()
+                                    , tester.getFixedSalary()
+                                    , tester.getBugNumber());
+                        } catch (Exception e) {
+                            System.out.println("NOT FOUND INFOR");
+                        }
+                    }
+                }
                 break;
         }
     }

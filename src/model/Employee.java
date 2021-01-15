@@ -3,10 +3,11 @@ package model;
 import java.io.Serializable;
 
 public abstract class Employee implements Serializable {
-    private String id, name;
-    private int age, phone;
+    private String id;
+    private String name;
+    private int age;
+    private int phone;
     protected int fixedSalary;
-
     public Employee() {
     }
 

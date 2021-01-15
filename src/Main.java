@@ -23,26 +23,28 @@ public class Main {
         }
         manager = new Manager(developerList, testerList);
         do {
+            System.out.println("\n");
+            System.out.println("------------------EMPLOYEE IT MANAGEMENT------------------");
             System.out.println("1.ADD NEW EMPLOYEE");
             System.out.println("2.SHOW ALL EMPLOYEE");
             System.out.println("3.EDIT EMPLOYEE BY ID");
             System.out.println("4.DELETE EMPLOYEE BY ID");
             System.out.println("5.SEARCH EMPLOYEE BY ID");
-
-            System.out.println("6.EXIT PROGRAM");
+            System.out.println("6.TOTAL SALARY OF EMPLOYEE");
+            System.out.println("7.SORT EMPLOYEE BY SALARY ");
+            System.out.println("8.EXIT PROGRAM");
 
             choice = Integer.parseInt(scanner.nextLine());
-
-            if (choice == 6) {
-                System.out.println("Bye bye");
+            if (choice == 8) {
+                System.out.println("Bye bye !");
                 System.exit(0);
             } else {
                 chooseObject();
             }
-        } while (choice != 0);
+        } while (choice != 8);
     }
 
-    private static void chooseObject() {
+    public static void chooseObject() {
         System.out.println("1.DEV");
         System.out.println("2.TESTER");
 
@@ -53,14 +55,23 @@ public class Main {
                 manager.addNewEmployee(choiceObject);
                 break;
             case 2:
-                manager.showAll(choiceObject);
+                manager.showAllEmployee(choiceObject);
                 break;
             case 3:
-                manager.update(choiceObject);
+                manager.updateEmployee(choiceObject);
                 break;
             case 4:
-                manager.delete(choiceObject);
+                manager.deleteEmployee(choiceObject);
                 break;
+            case 5:
+                manager.searchEmployee(choiceObject);
+                break;
+            case 6:
+
+                break;
+            case 7:
+
+
         }
     }
 }
