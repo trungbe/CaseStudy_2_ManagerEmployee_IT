@@ -56,11 +56,13 @@ public class Manager {
                 System.out.println("ENTER OVERTIME HOURS");
                 int overtimeHours = Integer.parseInt(scanner.nextLine());
                 checkEmployee(new Developer(id, name, age, phone, fixedSalary, overtimeHours), choiceObject);
+                System.out.println("Thêm mới thành công !");
                 break;
             case 2:
                 System.out.println("ENTER BUG NUMBER");
                 int bugNumber = Integer.parseInt(scanner.nextLine());
                 checkEmployee(new Tester(id, name, age, phone, fixedSalary, bugNumber), choiceObject);
+                System.out.println("Thêm mới thành công !");
                 break;
         }
     }
@@ -143,7 +145,7 @@ public class Manager {
                         break;
                     }
                 }
-                System.out.println("Employee not found! \n");
+                System.out.println("Employee not found ! ");
                 break;
             case 2:
                 for (int i = 0; i < testerList.size(); i++) {
