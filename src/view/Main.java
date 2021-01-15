@@ -1,6 +1,8 @@
+package view;
+
 import model.Developer;
 import model.Tester;
-import service.Manager;
+import controller.Manager;
 import storage.EmployeeReadAndWrite;
 
 import java.util.ArrayList;
@@ -38,9 +40,7 @@ public class Main {
             if (choice == 8) {
                 System.out.println("Bye bye !");
                 System.exit(0);
-            } else {
-                chooseObject();
-            }
+            } else chooseObject();
         } while (choice != 8);
     }
 
@@ -67,7 +67,7 @@ public class Main {
                 manager.searchEmployee(choiceObject);
                 break;
             case 6:
-
+                manager.showTotalSalaryEmployee(choiceObject);
                 break;
             case 7:
 

@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import model.Developer;
 import model.Tester;
@@ -18,7 +18,6 @@ public class Manager {
         this.developerList = developerList;
         this.testerList = testerList;
     }
-
 
     public void checkEmployee(Object object, int choiceObject) {
         List<Object> objectList = new ArrayList<>();
@@ -72,26 +71,24 @@ public class Manager {
             return;
         }
         System.out.println("------------------Thông tin " + (choiceObject == 1 ? "lập trình viên" : "kiểm thử viên") + "------------------");
-        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s%-15s"
+        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
                 , "ID"
                 , "Họ tên"
                 , "Tuổi"
                 , "Số điện thoại"
                 , "Lương cứng"
-                , (choiceObject == 1 ? "Giờ làm thêm" : "Số bug đã tìm thấy")
-                , "Tổng lương");
+                , (choiceObject == 1 ? "Giờ làm thêm" : "Số bug đã tìm thấy"));
         switch (choiceObject) {
             case 1:
                 try {
                     for (Developer dev : developerList) {
-                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s%-15s"
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
                                 , dev.getId()
                                 , dev.getName()
                                 , dev.getAge()
                                 , dev.getPhone()
                                 , dev.getFixedSalary()
-                                , dev.getOvertimeHours()
-                                , dev.getSalary());
+                                , dev.getOvertimeHours());
                     }
                     break;
                 } catch (Exception e) {
@@ -100,14 +97,13 @@ public class Manager {
             case 2:
                 try {
                     for (Tester tester : testerList) {
-                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s%-15s"
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
                                 , tester.getId()
                                 , tester.getName()
                                 , tester.getAge()
                                 , tester.getPhone()
                                 , tester.getFixedSalary()
-                                , tester.getBugNumber()
-                                , tester.getSalary());
+                                , tester.getBugNumber());
                     }
                     break;
                 } catch (Exception e) {
@@ -270,4 +266,56 @@ public class Manager {
                 break;
         }
     }
+
+    public void showTotalSalaryEmployee(int choiceObject) {
+        if (choiceObject != 1 && choiceObject != 2) {
+            System.out.println("NOT FOUND");
+            return;
+        }
+        System.out.println("------------------Thông tin " + (choiceObject == 1 ? "lập trình viên" : "kiểm thử viên") + "------------------");
+        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                , "ID"
+                , "Họ tên"
+                , "Tuổi"
+                , "Số điện thoại"
+                , "Lương cứng"
+                , (choiceObject == 1 ? "Giờ làm thêm" : "Số bug đã tìm thấy")
+                , "Tổng lương");
+        switch (choiceObject) {
+            case 1:
+                try {
+                    for (Developer dev : developerList) {
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                                , dev.getId()
+                                , dev.getName()
+                                , dev.getAge()
+                                , dev.getPhone()
+                                , dev.getFixedSalary()
+                                , dev.getOvertimeHours()
+                                , dev.getSalary());
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("NOT FOUND INFOR");
+                }
+            case 2:
+                try {
+                    for (Tester tester : testerList) {
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                                , tester.getId()
+                                , tester.getName()
+                                , tester.getAge()
+                                , tester.getPhone()
+                                , tester.getFixedSalary()
+                                , tester.getBugNumber()
+                                , tester.getSalary());
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("NOT FOUND INFOR");
+                }
+        }
+    }
+
+
 }

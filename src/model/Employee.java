@@ -8,6 +8,7 @@ public abstract class Employee implements Serializable {
     private int age;
     private int phone;
     protected int fixedSalary;
+
     public Employee() {
     }
 
