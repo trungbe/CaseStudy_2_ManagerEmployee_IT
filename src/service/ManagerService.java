@@ -34,19 +34,24 @@ public class ManagerService {
         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
     }
 
-    public boolean checkEnterEmployee(int choiceObject) {
-        if (choiceObject != 1 && choiceObject != 2) {
-            System.err.println("NOT FOUND");
-            return true;
-        }
-        return false;
-    }
-
     public void addNewEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID");
         String id = scanner.nextLine();
-
+        if (choiceObject == 1) {
+            for (Developer developer : developerList) {
+                if (developer.getId().equals(id)) {
+                    System.err.println("ID EXIST !");
+                    return;
+                }
+            }
+        } else {
+            for (Tester tester : testerList) {
+                if (tester.getId().equals(id)) {
+                    System.err.println("ID EXIST !");
+                    return;
+                }
+            }
+        }
         System.out.println("ENTER NAME");
         String name = scanner.nextLine();
         System.out.println("ENTER AGE");
@@ -72,7 +77,6 @@ public class ManagerService {
     }
 
     public void showAllEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("------------------INFORMATION " + (choiceObject == 1 ? "DEVELOPER" : "TESTER") + "------------------");
         System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
                 , "ID"
@@ -108,7 +112,6 @@ public class ManagerService {
     }
 
     public void updateEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID: ");
         String id = scanner.nextLine();
         boolean found = false;
@@ -139,7 +142,7 @@ public class ManagerService {
                     }
                 }
                 if (found == false) {
-                    System.out.println("EMPLOYEE NOT FOUND");
+                    System.err.println("EMPLOYEE NOT FOUND !");
                 }
                 break;
             case 2:
@@ -168,16 +171,16 @@ public class ManagerService {
                     }
                 }
                 if (found == false) {
-                    System.out.println("EMPLOYEE NOT FOUND");
+                    System.err.println("EMPLOYEE NOT FOUND !");
                 }
                 break;
         }
     }
 
     public void deleteEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID");
         String id = scanner.nextLine();
+        boolean found = false;
         switch (choiceObject) {
             case 1:
                 for (Developer dev : developerList) {
@@ -185,27 +188,36 @@ public class ManagerService {
                         developerList.remove(dev);
                         objectList = new ArrayList<Object>(developerList);
                         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
+                        System.out.println("DELETE SUCCESSFULLY !");
+                        found = true;
+                        break;
                     }
                 }
-                System.out.println("DELETE SUCCESSFULLY !");
+                if (found == false) {
+                    System.err.println("NOT FOUND ID FOR DELETE !");
+                }
                 break;
             case 2:
                 for (Tester tester : testerList) {
                     if (id.equals(tester.getId())) {
                         testerList.remove(tester);
                         objectList = new ArrayList<Object>(testerList);
-                        EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
+                        System.out.println("DELETE SUCCESSFULLY !");
+                        found = true;
+                        break;
                     }
                 }
-                System.out.println("DELETE SUCCESSFULLY !");
+                if (found == false) {
+                    System.err.println("NOT FOUND ID FOR DELETE !");
+                }
                 break;
         }
-    } //sua validate
+    }
 
     public void searchEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID ");
         String id = scanner.nextLine();
+        boolean found = false;
         switch (choiceObject) {
             case 1:
                 for (Developer dev : developerList) {
@@ -225,7 +237,12 @@ public class ManagerService {
                                 , dev.getPhone()
                                 , dev.getFixedSalary()
                                 , dev.getOvertimeHours());
+                        found = true;
+                        break;
                     }
+                }
+                if (found == false) {
+                    System.err.println("EMPLOYEE NOT FOUND !");
                 }
                 break;
             case 2:
@@ -247,14 +264,18 @@ public class ManagerService {
                                 , tester.getPhone()
                                 , tester.getFixedSalary()
                                 , tester.getBugNumber());
+                        found = true;
+                        break;
                     }
+                }
+                if (found == false) {
+                    System.err.println("EMPLOYEE NOT FOUND !");
                 }
                 break;
         }
-    } //sua validate
+    }
 
     public void showTotalSalaryEmployee(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         System.out.println("------------------INFORMATION " + (choiceObject == 1 ? "DEVELOPER" : "TESTER") + "------------------");
         System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
                 , "ID"
@@ -266,44 +287,33 @@ public class ManagerService {
                 , "TOTAL SALARY");
         switch (choiceObject) {
             case 1:
-                try {
-                    for (Developer dev : developerList) {
-                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
-                                , dev.getId()
-                                , dev.getName()
-                                , dev.getAge()
-                                , dev.getPhone()
-                                , dev.getFixedSalary()
-                                , dev.getOvertimeHours()
-                                , dev.getSalary());
-                    }
-
-                } catch (Exception e) {
-                    System.err.println("NOT FOUND INFOR");
+                for (Developer dev : developerList) {
+                    System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                            , dev.getId()
+                            , dev.getName()
+                            , dev.getAge()
+                            , dev.getPhone()
+                            , dev.getFixedSalary()
+                            , dev.getOvertimeHours()
+                            , dev.getSalary());
                 }
                 break;
             case 2:
-                try {
-                    for (Tester tester : testerList) {
-                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
-                                , tester.getId()
-                                , tester.getName()
-                                , tester.getAge()
-                                , tester.getPhone()
-                                , tester.getFixedSalary()
-                                , tester.getBugNumber()
-                                , tester.getSalary());
-                    }
-
-                } catch (Exception e) {
-                    System.err.println("NOT FOUND INFOR");
+                for (Tester tester : testerList) {
+                    System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                            , tester.getId()
+                            , tester.getName()
+                            , tester.getAge()
+                            , tester.getPhone()
+                            , tester.getFixedSalary()
+                            , tester.getBugNumber()
+                            , tester.getSalary());
                 }
                 break;
         }
     }
 
     public void sortEmployeeBySalary(int choiceObject) {
-        if (checkEnterEmployee(choiceObject)) return;
         switch (choiceObject) {
             case 1:
                 Collections.sort(developerList, new Comparator<Developer>() {

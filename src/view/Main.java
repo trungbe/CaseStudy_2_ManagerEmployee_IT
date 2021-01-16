@@ -52,7 +52,7 @@ public class Main {
         System.out.println("2.TESTER");
 
         int choiceObject = Integer.parseInt(scanner.nextLine());
-
+        if (checkEnterEmployee(choiceObject)) return;
         switch (choice) {
             case 1:
                 manager.addNewEmployee(choiceObject);
@@ -76,6 +76,13 @@ public class Main {
                 manager.sortEmployeeBySalary(choiceObject);
 
         }
+    }
+    public static boolean checkEnterEmployee(int choiceObject) {
+        if (choiceObject != 1 && choiceObject != 2) {
+            System.err.println("NOT FOUND");
+            return true;
+        }
+        return false;
     }
 }
 
