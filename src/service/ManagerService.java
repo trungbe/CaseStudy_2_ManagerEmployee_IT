@@ -1,4 +1,4 @@
-package controller;
+package service;
 
 import model.Developer;
 import model.Tester;
@@ -6,13 +6,13 @@ import storage.EmployeeReadAndWrite;
 
 import java.util.*;
 
-public class Manager {
+public class ManagerService {
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
     List<Object> objectList;
 
-    public Manager(List<Developer> developerList, List<Tester> testerList) {
+    public ManagerService(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
         this.testerList = testerList;
     }
@@ -46,6 +46,7 @@ public class Manager {
         if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID");
         String id = scanner.nextLine();
+
         System.out.println("ENTER NAME");
         String name = scanner.nextLine();
         System.out.println("ENTER AGE");
@@ -65,7 +66,7 @@ public class Manager {
                 System.out.println("ENTER BUG NUMBER");
                 int bugNumber = Integer.parseInt(scanner.nextLine());
                 checkEmployee(new Tester(id, name, age, phone, fixedSalary, bugNumber), choiceObject);
-                System.out.println("ADD NEW TESTER SUCCESSFUL !!");
+                System.out.println("ADD NEW TESTER SUCCESSFUL !");
                 break;
         }
     }
@@ -110,6 +111,7 @@ public class Manager {
         if (checkEnterEmployee(choiceObject)) return;
         System.out.println("ENTER ID: ");
         String id = scanner.nextLine();
+        boolean found = false;
         switch (choiceObject) {
             case 1:
                 for (int i = 0; i < developerList.size(); i++) {
@@ -131,9 +133,14 @@ public class Manager {
                         developerList.get(i).setOvertimeHours(overtimeHours);
                         objectList = new ArrayList<Object>(developerList);
                         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
+                        System.out.println("EDIT SUCCESSFULLY !");
+                        found = true;
+                        break;
                     }
                 }
-                System.out.println("EDIT SUCCESSFULLY !");
+                if (found == false) {
+                    System.out.println("EMPLOYEE NOT FOUND");
+                }
                 break;
             case 2:
                 for (int i = 0; i < testerList.size(); i++) {
@@ -155,9 +162,14 @@ public class Manager {
                         testerList.get(i).setBugNumber(bugNumber);
                         objectList = new ArrayList<Object>(testerList);
                         EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
+                        System.out.println("EDIT SUCCESSFULLY !");
+                        found = true;
+                        break;
                     }
                 }
-                System.out.println("EDIT SUCCESSFULLY");
+                if (found == false) {
+                    System.out.println("EMPLOYEE NOT FOUND");
+                }
                 break;
         }
     }
@@ -188,7 +200,7 @@ public class Manager {
                 System.out.println("DELETE SUCCESSFULLY !");
                 break;
         }
-    }
+    } //sua validate
 
     public void searchEmployee(int choiceObject) {
         if (checkEnterEmployee(choiceObject)) return;
@@ -206,17 +218,13 @@ public class Manager {
                                 , "PHONE"
                                 , "FIXED SALARY"
                                 , "OVERTIME HOURS");
-                        try {
-                            System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
-                                    , dev.getId()
-                                    , dev.getName()
-                                    , dev.getAge()
-                                    , dev.getPhone()
-                                    , dev.getFixedSalary()
-                                    , dev.getOvertimeHours());
-                        } catch (Exception e) {
-                            System.out.println("NOT FOUND INFOR");
-                        }
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                , dev.getId()
+                                , dev.getName()
+                                , dev.getAge()
+                                , dev.getPhone()
+                                , dev.getFixedSalary()
+                                , dev.getOvertimeHours());
                     }
                 }
                 break;
@@ -231,22 +239,19 @@ public class Manager {
                                 , "PHONE"
                                 , "FIXED SALARY"
                                 , "BUG NUMBER FOUND ");
-                        try {
-                            System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
-                                    , tester.getId()
-                                    , tester.getName()
-                                    , tester.getAge()
-                                    , tester.getPhone()
-                                    , tester.getFixedSalary()
-                                    , tester.getBugNumber());
-                        } catch (Exception e) {
-                            System.out.println("NOT FOUND INFOR");
-                        }
+
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-15s"
+                                , tester.getId()
+                                , tester.getName()
+                                , tester.getAge()
+                                , tester.getPhone()
+                                , tester.getFixedSalary()
+                                , tester.getBugNumber());
                     }
                 }
                 break;
         }
-    }
+    } //sua validate
 
     public void showTotalSalaryEmployee(int choiceObject) {
         if (checkEnterEmployee(choiceObject)) return;
@@ -333,6 +338,6 @@ public class Manager {
                 System.out.println("\n\nSORTING BY SALARY ");
                 break;
         }
-
     }
+
 }

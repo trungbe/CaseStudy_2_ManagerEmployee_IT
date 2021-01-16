@@ -1,6 +1,6 @@
 package view;
 
-import controller.Manager;
+import service.ManagerService;
 import model.Developer;
 import model.Tester;
 import storage.EmployeeReadAndWrite;
@@ -14,7 +14,7 @@ public class Main {
     static int choice;
     static List<Developer> developerList = new ArrayList<>();
     static List<Tester> testerList = new ArrayList<>();
-    static Manager manager;
+    static ManagerService manager;
 
     public static void main(String[] args) {
         try {
@@ -23,7 +23,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        manager = new Manager(developerList, testerList);
+        manager = new ManagerService(developerList, testerList);
         do {
             System.out.println("\n");
             System.out.println("------------------EMPLOYEE IT MANAGEMENT------------------");
@@ -40,6 +40,9 @@ public class Main {
             if (choice == 8) {
                 System.out.println("Bye bye !");
                 System.exit(0);
+            } else if (choice<1 || choice>8){
+                System.out.println("FUNCTION NOT FOUND");
+                continue;
             } else chooseObject();
         } while (choice != 8);
     }
