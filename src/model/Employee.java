@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public abstract class Employee implements Serializable {
+public abstract class Employee implements Serializable{
     private String id;
     private String name;
     private int age;
@@ -72,4 +72,5 @@ public abstract class Employee implements Serializable {
                 ", fixedSalary=" + fixedSalary +
                 '}';
     }
+
 }

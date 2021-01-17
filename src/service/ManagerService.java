@@ -10,7 +10,7 @@ public class ManagerService {
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
-    List<Object> objectList;
+    List<Object> objectList ;
 
     public ManagerService(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
@@ -39,14 +39,14 @@ public class ManagerService {
         String id = scanner.nextLine();
         if (choiceObject == 1) {
             for (Developer developer : developerList) {
-                if (developer.getId().equals(id)) {
+                if (id.equals(developer.getId())) {
                     System.err.println("ID EXIST !");
                     return;
                 }
             }
         } else {
             for (Tester tester : testerList) {
-                if (tester.getId().equals(id)) {
+                if (id.equals(tester.getId())) {
                     System.err.println("ID EXIST !");
                     return;
                 }
@@ -202,6 +202,7 @@ public class ManagerService {
                     if (id.equals(tester.getId())) {
                         testerList.remove(tester);
                         objectList = new ArrayList<Object>(testerList);
+                        EmployeeReadAndWrite.writeObjectToFile(objectList, choiceObject);
                         System.out.println("DELETE SUCCESSFULLY !");
                         found = true;
                         break;

@@ -1,8 +1,8 @@
 package view;
 
-import service.ManagerService;
 import model.Developer;
 import model.Tester;
+import service.ManagerService;
 import storage.EmployeeReadAndWrite;
 
 import java.util.ArrayList;
@@ -37,46 +37,42 @@ public class Main {
             System.out.println("8.EXIT PROGRAM");
 
             choice = Integer.parseInt(scanner.nextLine());
-            if (choice == 8) {
-                System.out.println("Bye bye !");
-                System.exit(0);
-            } else if (choice<1 || choice>8){
-                System.out.println("FUNCTION NOT FOUND");
-                continue;
-            } else chooseObject();
+
+            System.out.println("1.DEV");
+            System.out.println("2.TESTER");
+
+            int choiceObject = Integer.parseInt(scanner.nextLine());
+            if (checkEnterEmployee(choiceObject)) return;
+            switch (choice) {
+                case 1:
+                    manager.addNewEmployee(choiceObject);
+                    break;
+                case 2:
+                    manager.showAllEmployee(choiceObject);
+                    break;
+                case 3:
+                    manager.updateEmployee(choiceObject);
+                    break;
+                case 4:
+                    manager.deleteEmployee(choiceObject);
+                    break;
+                case 5:
+                    manager.searchEmployee(choiceObject);
+                    break;
+                case 6:
+                    manager.showTotalSalaryEmployee(choiceObject);
+                    break;
+                case 7:
+                    manager.sortEmployeeBySalary(choiceObject);
+                case 8:
+                    System.out.println("Bye bye !");
+                    System.exit(0);
+            }
+
         } while (choice != 8);
     }
 
-    public static void chooseObject() {
-        System.out.println("1.DEV");
-        System.out.println("2.TESTER");
 
-        int choiceObject = Integer.parseInt(scanner.nextLine());
-        if (checkEnterEmployee(choiceObject)) return;
-        switch (choice) {
-            case 1:
-                manager.addNewEmployee(choiceObject);
-                break;
-            case 2:
-                manager.showAllEmployee(choiceObject);
-                break;
-            case 3:
-                manager.updateEmployee(choiceObject);
-                break;
-            case 4:
-                manager.deleteEmployee(choiceObject);
-                break;
-            case 5:
-                manager.searchEmployee(choiceObject);
-                break;
-            case 6:
-                manager.showTotalSalaryEmployee(choiceObject);
-                break;
-            case 7:
-                manager.sortEmployeeBySalary(choiceObject);
-
-        }
-    }
     public static boolean checkEnterEmployee(int choiceObject) {
         if (choiceObject != 1 && choiceObject != 2) {
             System.err.println("NOT FOUND");
