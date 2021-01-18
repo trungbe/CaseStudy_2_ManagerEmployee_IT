@@ -361,4 +361,50 @@ public class ManagerService {
         }
         return sum;
     }
+
+    public void showListSalaryLowerAvg(int choiceObject) {
+        int sumSalaryEmployee = sumSalaryEmployee();
+        int sumEmployee = developerList.size() + testerList.size();
+        int avg = sumSalaryEmployee / sumEmployee;
+        System.out.println("AVG SALARY: " + avg);
+        System.out.println("------------------INFORMATION " + (choiceObject == 1 ? "DEVELOPER" : "TESTER") + "------------------");
+        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                , "ID"
+                , "NAME"
+                , "AGE"
+                , "PHONE"
+                , "FIXED SALARY"
+                , (choiceObject == 1 ? "OVERTIME HOURS" : "BUG NUMBER FOUND")
+                , "TOTAL SALARY");
+        switch (choiceObject) {
+            case 1:
+                for (Developer dev : developerList) {
+                    if (dev.getSalary() < avg) {
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                                , dev.getId()
+                                , dev.getName()
+                                , dev.getAge()
+                                , dev.getPhone()
+                                , dev.getFixedSalary()
+                                , dev.getOvertimeHours()
+                                , dev.getSalary());
+                    }
+                }
+                break;
+            case 2:
+                for (Tester tester : testerList) {
+                    if (tester.getSalary() < avg) {
+                        System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
+                                , tester.getId()
+                                , tester.getName()
+                                , tester.getAge()
+                                , tester.getPhone()
+                                , tester.getFixedSalary()
+                                , tester.getBugNumber()
+                                , tester.getSalary());
+                    }
+                }
+                break;
+        }
+    }
 }

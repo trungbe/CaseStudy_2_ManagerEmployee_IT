@@ -35,7 +35,7 @@ public class Main {
             System.out.println("6.TOTAL SALARY OF EMPLOYEE");
             System.out.println("7.SORT EMPLOYEE BY SALARY ");
             System.out.println("8.SUM ALL SALARY");
-            System.out.println("9.SHOW EMPLOYEES HAS Wages lower than the average of the employees");
+            System.out.println("9.SHOW EMPLOYEES HAS SALARY LOWER THAN AVERAGE SALARY");
             System.out.println("10.EXIT PROGRAM");
 
             choice = Integer.parseInt(scanner.nextLine());
@@ -80,7 +80,7 @@ public class Main {
                 manager.sortEmployeeBySalary(choiceObject);
                 break;
             case 9:
-
+                manager.showListSalaryLowerAvg(choiceObject);
         }
     }
 
