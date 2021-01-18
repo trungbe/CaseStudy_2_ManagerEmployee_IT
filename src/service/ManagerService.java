@@ -10,7 +10,7 @@ public class ManagerService {
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
-    List<Object> objectList ;
+    List<Object> objectList;
 
     public ManagerService(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
@@ -351,4 +351,14 @@ public class ManagerService {
         }
     }
 
+    public int sumSalaryEmployee() {
+        int sum = 0;
+        for (Developer developer : developerList) {
+            sum += developer.getSalary();
+        }
+        for (Tester tester : testerList) {
+            sum += tester.getSalary();
+        }
+        return sum;
+    }
 }

@@ -1,8 +1,8 @@
 package view;
 
-import service.ManagerService;
 import model.Developer;
 import model.Tester;
+import service.ManagerService;
 import storage.EmployeeReadAndWrite;
 
 import java.util.ArrayList;
@@ -34,17 +34,21 @@ public class Main {
             System.out.println("5.SEARCH EMPLOYEE BY ID");
             System.out.println("6.TOTAL SALARY OF EMPLOYEE");
             System.out.println("7.SORT EMPLOYEE BY SALARY ");
-            System.out.println("8.EXIT PROGRAM");
+            System.out.println("8.SUM ALL SALARY");
+            System.out.println("9.SHOW EMPLOYEES HAS Wages lower than the average of the employees");
+            System.out.println("10.EXIT PROGRAM");
 
             choice = Integer.parseInt(scanner.nextLine());
-            if (choice == 8) {
+            if (choice == 10) {
                 System.out.println("Bye bye !");
                 System.exit(0);
-            } else if (choice<1 || choice>8){
+            } else if (choice < 1 || choice > 10) {
                 System.err.println("FUNCTION NOT FOUND ! RETYPE");
                 continue;
+            } else if (choice == 8) {
+                System.out.println("Sum salary: " + manager.sumSalaryEmployee());
             } else chooseObject();
-        } while (choice != 8);
+        } while (choice != 10);
     }
 
     public static void chooseObject() {
@@ -74,9 +78,12 @@ public class Main {
                 break;
             case 7:
                 manager.sortEmployeeBySalary(choiceObject);
+                break;
+            case 9:
 
         }
     }
+
     public static boolean checkEnterEmployee(int choiceObject) {
         if (choiceObject != 1 && choiceObject != 2) {
             System.err.println("NOT FOUND");
