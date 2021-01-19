@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static final String REGEX = "^(?:[1-9]|0[1-9]|10)$";
     static Scanner scanner = new Scanner(System.in);
     static int choice;
     static List<Developer> developerList = new ArrayList<>();
@@ -24,6 +25,7 @@ public class Main {
             e.printStackTrace();
         }
         manager = new ManagerService(developerList, testerList);
+        String check;
         do {
             System.out.println("\n");
             System.out.println("------------------EMPLOYEE IT MANAGEMENT------------------");
@@ -37,14 +39,15 @@ public class Main {
             System.out.println("8.SUM ALL SALARY");
             System.out.println("9.SHOW EMPLOYEES HAS SALARY LOWER THAN AVERAGE SALARY");
             System.out.println("10.EXIT PROGRAM");
+            do {
+                System.out.println("INVITING YOU TO CHOOSE: ");
+                check = scanner.nextLine();
+            } while (!check.matches(REGEX));
 
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(check);
             if (choice == 10) {
                 System.out.println("Bye bye !");
                 System.exit(0);
-            } else if (choice < 1 || choice > 10) {
-                System.err.println("FUNCTION NOT FOUND ! RETYPE");
-                continue;
             } else if (choice == 8) {
                 System.out.println("Sum salary: " + manager.sumSalaryEmployee());
             } else chooseObject();
@@ -81,6 +84,7 @@ public class Main {
                 break;
             case 9:
                 manager.showListSalaryLowerAvg(choiceObject);
+                break;
         }
     }
 

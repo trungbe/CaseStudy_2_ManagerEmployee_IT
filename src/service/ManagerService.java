@@ -7,10 +7,14 @@ import storage.EmployeeReadAndWrite;
 import java.util.*;
 
 public class ManagerService {
+    static final String REGEX_PHONE = "^[0-9]{10,11}$";
+    static final String REGEX_NUM = "^[0-9]$";
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
     List<Object> objectList;
+    String checkPhone;
+    String checkNum;
 
     public ManagerService(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
@@ -54,10 +58,17 @@ public class ManagerService {
         }
         System.out.println("ENTER NAME");
         String name = scanner.nextLine();
-        System.out.println("ENTER AGE");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.println("ENTER PHONE");
-        int phone = Integer.parseInt(scanner.nextLine());
+        do {
+            System.out.println("ENTER AGE");
+            checkNum = scanner.nextLine();
+        } while (!checkNum.matches(REGEX_NUM));
+        int age = Integer.parseInt(checkNum);
+        do {
+            System.out.println("ENTER PHONE (ENTER NUMBER 10 OR 11 DIGIT)");
+            checkPhone = scanner.nextLine();
+        } while (!checkPhone.matches(REGEX_PHONE));
+        int phone = Integer.parseInt(checkPhone);
+
         System.out.println("ENTER FIXED SALARY");
         int fixedSalary = Integer.parseInt(scanner.nextLine());
         switch (choiceObject) {
@@ -123,8 +134,11 @@ public class ManagerService {
                         String name = scanner.nextLine();
                         System.out.println("ENTER AGE");
                         int age = Integer.parseInt(scanner.nextLine());
-                        System.out.println("ENTER PHONE");
-                        int phone = Integer.parseInt(scanner.nextLine());
+                        do {
+                            System.out.println("ENTER PHONE (ENTER NUMBER 10 OR 11 DIGIT)");
+                            checkPhone = scanner.nextLine();
+                        } while (!checkPhone.matches(REGEX_PHONE));
+                        int phone = Integer.parseInt(checkPhone);
                         System.out.println("ENTER FIXED SALARY");
                         int fixedSalary = Integer.parseInt(scanner.nextLine());
                         System.out.println("ENTER OVERTIME HOURS");
