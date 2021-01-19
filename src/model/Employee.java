@@ -6,13 +6,13 @@ public abstract class Employee implements Serializable{
     private String id;
     private String name;
     private int age;
-    private int phone;
+    private String phone;
     protected int fixedSalary;
 
     public Employee() {
     }
 
-    public Employee(String id, String name, int age, int phone, int fixedSalary) {
+    public Employee(String id, String name, int age, String phone, int fixedSalary) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -44,11 +44,11 @@ public abstract class Employee implements Serializable{
         this.age = age;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

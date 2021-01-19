@@ -8,7 +8,7 @@ public class Developer extends Employee implements Serializable {
     public Developer() {
     }
 
-    public Developer(String id, String name, int age, int phone, int fixedSalary, int overtimeHours) {
+    public Developer(String id, String name, int age, String phone, int fixedSalary, int overtimeHours) {
         super(id, name, age, phone, fixedSalary);
         this.overtimeHours = overtimeHours;
     }
@@ -32,4 +32,5 @@ public class Developer extends Employee implements Serializable {
                 "overtimeHours=" + overtimeHours +
                 '}';
     }
+
 }

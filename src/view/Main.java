@@ -43,13 +43,12 @@ public class Main {
                 System.out.println("INVITING YOU TO CHOOSE: ");
                 check = scanner.nextLine();
             } while (!check.matches(REGEX));
-
             choice = Integer.parseInt(check);
             if (choice == 10) {
                 System.out.println("Bye bye !");
                 System.exit(0);
             } else if (choice == 8) {
-                System.out.println("Sum salary: " + manager.sumSalaryEmployee());
+                System.out.println("Sum salary: " + manager.sumSalaryEmployee() + " $");
             } else chooseObject();
         } while (choice != 10);
     }
@@ -57,7 +56,7 @@ public class Main {
     public static void chooseObject() {
         System.out.println("1.DEV");
         System.out.println("2.TESTER");
-
+        System.out.println("INVITING YOU TO CHOOSE: ");
         int choiceObject = Integer.parseInt(scanner.nextLine());
         if (checkEnterEmployee(choiceObject)) return;
         switch (choice) {

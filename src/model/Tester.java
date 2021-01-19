@@ -8,7 +8,7 @@ public class Tester extends Employee implements Serializable {
     public Tester() {
     }
 
-    public Tester(String id, String name, int age, int phone, int fixedSalary, int bugNumber) {
+    public Tester(String id, String name, int age, String phone, int fixedSalary, int bugNumber) {
         super(id, name, age, phone, fixedSalary);
         this.bugNumber = bugNumber;
     }

@@ -8,17 +8,44 @@ import java.util.*;
 
 public class ManagerService {
     static final String REGEX_PHONE = "^[0-9]{10,11}$";
-    static final String REGEX_NUM = "^[0-9]$";
     static Scanner scanner = new Scanner(System.in);
     List<Developer> developerList;
     List<Tester> testerList;
     List<Object> objectList;
     String checkPhone;
     String checkNum;
+    String checkNumber;
 
     public ManagerService(List<Developer> developerList, List<Tester> testerList) {
         this.developerList = developerList;
         this.testerList = testerList;
+    }
+
+    private boolean checkAge(String checkNum) {
+        boolean isValid = true;
+        int age;
+        try {
+            age = Integer.parseInt(checkNum);
+            if (age < 18 || age > 60) {
+                System.err.println("AGE FROM 18 TO 60");
+                isValid = false;
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("AGE IS NUMBER");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean checkNumberFormat(String checkNumber) {
+        boolean isValid = true;
+        try {
+            Integer.parseInt(checkNumber);
+        } catch (NumberFormatException e) {
+            isValid = false;
+            System.err.println("ERROR: DATA TYPE IS NUMBER");
+        }
+        return isValid;
     }
 
     public void checkEmployee(Object object, int choiceObject) {
@@ -61,26 +88,34 @@ public class ManagerService {
         do {
             System.out.println("ENTER AGE");
             checkNum = scanner.nextLine();
-        } while (!checkNum.matches(REGEX_NUM));
+        } while (!checkAge(checkNum));
         int age = Integer.parseInt(checkNum);
         do {
             System.out.println("ENTER PHONE (ENTER NUMBER 10 OR 11 DIGIT)");
             checkPhone = scanner.nextLine();
         } while (!checkPhone.matches(REGEX_PHONE));
-        int phone = Integer.parseInt(checkPhone);
-
-        System.out.println("ENTER FIXED SALARY");
-        int fixedSalary = Integer.parseInt(scanner.nextLine());
+        String phone = checkPhone;
+        do {
+            System.out.println("ENTER FIXED SALARY");
+            checkNumber = scanner.nextLine();
+        } while (!checkNumberFormat(checkNumber));
+        int fixedSalary = Integer.parseInt(checkNumber);
         switch (choiceObject) {
             case 1:
-                System.out.println("ENTER OVERTIME HOURS");
-                int overtimeHours = Integer.parseInt(scanner.nextLine());
+                do {
+                    System.out.println("ENTER OVERTIME HOURS");
+                    checkNumber = scanner.nextLine();
+                } while (!checkNumberFormat(checkNumber));
+                int overtimeHours = Integer.parseInt(checkNumber);
                 checkEmployee(new Developer(id, name, age, phone, fixedSalary, overtimeHours), choiceObject);
                 System.out.println("ADD NEW DEV SUCCESSFUL !");
                 break;
             case 2:
-                System.out.println("ENTER BUG NUMBER");
-                int bugNumber = Integer.parseInt(scanner.nextLine());
+                do {
+                    System.out.println("ENTER BUG NUMBER");
+                    checkNumber = scanner.nextLine();
+                } while (!checkNumberFormat(checkNumber));
+                int bugNumber = Integer.parseInt(checkNumber);
                 checkEmployee(new Tester(id, name, age, phone, fixedSalary, bugNumber), choiceObject);
                 System.out.println("ADD NEW TESTER SUCCESSFUL !");
                 break;
@@ -132,17 +167,27 @@ public class ManagerService {
                     if (id.equals(developerList.get(i).getId())) {
                         System.out.println("ENTER NAME");
                         String name = scanner.nextLine();
-                        System.out.println("ENTER AGE");
-                        int age = Integer.parseInt(scanner.nextLine());
+                        do {
+                            System.out.println("ENTER AGE");
+
+                            checkNum = scanner.nextLine();
+                        } while (!checkAge(checkNum));
+                        int age = Integer.parseInt(checkNum);
                         do {
                             System.out.println("ENTER PHONE (ENTER NUMBER 10 OR 11 DIGIT)");
                             checkPhone = scanner.nextLine();
                         } while (!checkPhone.matches(REGEX_PHONE));
-                        int phone = Integer.parseInt(checkPhone);
-                        System.out.println("ENTER FIXED SALARY");
-                        int fixedSalary = Integer.parseInt(scanner.nextLine());
-                        System.out.println("ENTER OVERTIME HOURS");
-                        int overtimeHours = Integer.parseInt(scanner.nextLine());
+                        String phone = checkPhone;
+                        do {
+                            System.out.println("ENTER FIXED SALARY");
+                            checkNumber = scanner.nextLine();
+                        } while (!checkNumberFormat(checkNumber));
+                        int fixedSalary = Integer.parseInt(checkNumber);
+                        do {
+                            System.out.println("ENTER OVERTIME HOURS");
+                            checkNumber = scanner.nextLine();
+                        } while (!checkNumberFormat(checkNumber));
+                        int overtimeHours = Integer.parseInt(checkNumber);
                         developerList.get(i).setAge(age);
                         developerList.get(i).setName(name);
                         developerList.get(i).setPhone(phone);
@@ -164,14 +209,27 @@ public class ManagerService {
                     if (id.equals(testerList.get(i).getId())) {
                         System.out.println("ENTER NAME");
                         String name = scanner.nextLine();
-                        System.out.println("ENTER AGE");
-                        int age = Integer.parseInt(scanner.nextLine());
-                        System.out.println("ENTER PHONE");
-                        int phone = Integer.parseInt(scanner.nextLine());
-                        System.out.println("ENTER FIXED SALARY");
-                        int fixedSalary = Integer.parseInt(scanner.nextLine());
-                        System.out.println("ENTER BUG NUMBER");
-                        int bugNumber = Integer.parseInt(scanner.nextLine());
+                        do {
+                            System.out.println("ENTER AGE");
+
+                            checkNum = scanner.nextLine();
+                        } while (!checkAge(checkNum));
+                        int age = Integer.parseInt(checkNum);
+                        do {
+                            System.out.println("ENTER PHONE (ENTER NUMBER 10 OR 11 DIGIT)");
+                            checkPhone = scanner.nextLine();
+                        } while (!checkPhone.matches(REGEX_PHONE));
+                        String phone = checkPhone;
+                        do {
+                            System.out.println("ENTER FIXED SALARY");
+                            checkNumber = scanner.nextLine();
+                        } while (!checkNumberFormat(checkNumber));
+                        int fixedSalary = Integer.parseInt(checkNumber);
+                        do {
+                            System.out.println("ENTER BUG NUMBER");
+                            checkNumber = scanner.nextLine();
+                        } while (!checkNumberFormat(checkNumber));
+                        int bugNumber = Integer.parseInt(checkNumber);
                         testerList.get(i).setAge(age);
                         testerList.get(i).setName(name);
                         testerList.get(i).setPhone(phone);
@@ -310,7 +368,7 @@ public class ManagerService {
                             , dev.getPhone()
                             , dev.getFixedSalary()
                             , dev.getOvertimeHours()
-                            , dev.getSalary());
+                            , dev.getSalary() + " $");
                 }
                 break;
             case 2:
@@ -322,7 +380,7 @@ public class ManagerService {
                             , tester.getPhone()
                             , tester.getFixedSalary()
                             , tester.getBugNumber()
-                            , tester.getSalary());
+                            , tester.getSalary() + " $");
                 }
                 break;
         }
@@ -380,7 +438,7 @@ public class ManagerService {
         int sumSalaryEmployee = sumSalaryEmployee();
         int sumEmployee = developerList.size() + testerList.size();
         int avg = sumSalaryEmployee / sumEmployee;
-        System.out.println("AVG SALARY: " + avg);
+        System.out.println("AVG SALARY: " + avg + " $");
         System.out.println("------------------INFORMATION " + (choiceObject == 1 ? "DEVELOPER" : "TESTER") + "------------------");
         System.out.printf("\n%-10s%-10s%-10s%-15s%-15s%-20s%-15s"
                 , "ID"
@@ -401,7 +459,7 @@ public class ManagerService {
                                 , dev.getPhone()
                                 , dev.getFixedSalary()
                                 , dev.getOvertimeHours()
-                                , dev.getSalary());
+                                , dev.getSalary() + " $");
                     }
                 }
                 break;
@@ -415,7 +473,7 @@ public class ManagerService {
                                 , tester.getPhone()
                                 , tester.getFixedSalary()
                                 , tester.getBugNumber()
-                                , tester.getSalary());
+                                , tester.getSalary() + " $");
                     }
                 }
                 break;
